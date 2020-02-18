@@ -1,25 +1,14 @@
 package com.smoothstack.borrower.controller;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
-import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smoothstack.borrower.domain.CheckOutDetails;
 import com.smoothstack.borrower.services.BorrowerServices;
 
 @Component
@@ -34,11 +23,11 @@ public class BorrowerController {
 	}
 
 	@POST
-	@Path("/checkout")
+	@Path("/checkout/{branchId}/{bookId}/{cardNo}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 
-	public Response checkOutBook(@QueryParam("branchId") int branchId, @QueryParam("bookId") int bookId,
-			@QueryParam("cardNo") int cardNo) {
+	public Response checkOutBook(@PathParam("branchId") int branchId, @PathParam("bookId") int bookId,
+			@PathParam("cardNo") int cardNo) {
 
 		String details;
 
@@ -56,9 +45,9 @@ public class BorrowerController {
 	}
 
 	@POST
-	@Path("/checkin")
+	@Path("/checkin/{bookId}/{cardNo}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response checkInBook(@QueryParam("bookId") int bookId, @QueryParam("cardNo") int cardNo) {
+	public Response checkInBook(@PathParam("bookId") int bookId, @PathParam("cardNo") int cardNo) {
 
 		String resp = "";
 		try {

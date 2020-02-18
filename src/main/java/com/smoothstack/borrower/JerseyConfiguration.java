@@ -18,6 +18,5 @@ public class JerseyConfiguration extends ResourceConfig {
    @PostConstruct
    public void setUp() {
        register(BorrowerController.class);
-       register(GenericExceptionMapper.class);
    }
 }
